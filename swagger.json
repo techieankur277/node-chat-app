@@ -1,0 +1,137 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Chat App API Documentation",
+        "version": "1.0.0",
+        "description": "API Documentation for Node Js Chat APP"
+    },
+    "components": {
+        "securitySchemes": {
+            "BasicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            },
+            "UserAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    },
+    "paths": {
+        "/api/v1/users/signup": {
+            "post": {
+                "summary": "User signup",
+                "description": "Create a new user by providing user details.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string",
+                                        "example": "Alex",
+                                        "required": true
+                                    },
+                                    "lastName": {
+                                        "type": "string",
+                                        "example": "Cooper",
+                                        "required": true
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "alex.fakemail@yopmail.com",
+                                        "required": true
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Test@123",
+                                        "required": true
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "example": "Test@123",
+                                        "required": true
+                                    }
+                                },
+                                "required": [
+                                    "firstName",
+                                    "lasttName",
+                                    "email",
+                                    "password",
+                                    "confirmPassword"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User created successfully"
+                    },
+                    "400": {
+                        "description": "Invalid input"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/login": {
+            "post": {
+                "summary": "User login",
+                "description": "Authenticate user and return a JWT token.",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "alex.fakemail@yopmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "Test@123"
+                                    }
+                                },
+                                "required": [
+                                    "email",
+                                    "password"
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "JWT_TOKEN"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "BasicAuth": []
+        }
+    ]
+}
