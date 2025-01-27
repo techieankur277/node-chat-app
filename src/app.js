@@ -18,8 +18,7 @@ app.use(bodyParser.json());
 app.use('/api/v1/users', userRoutes);
 
 // cors handling:
-
-app.use(cors());
+app.options('*', cors());
 
 // mongo connect:
 mongodb.connect();
